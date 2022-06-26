@@ -3,9 +3,8 @@ import path from 'path';
 import type { FSWatcher } from 'chokidar';
 import chokidar from 'chokidar';
 
-import { DirScanner, FileWriter } from './lib';
-import type { Config, IconsMap } from './types';
-import type { DirTreeInfo } from '../types';
+import { DeclarationWriter, DirScanner } from './lib';
+import type { Config, DirTreeInfo, IconsMap } from './types';
 
 class SVGGenerator {
   public constructor(private readonly config: Config) {}
@@ -40,25 +39,16 @@ class SVGGenerator {
     map[dirInfo.name] = dirInfo.path;
   };
 
-  private readonly getIconsMapFileContent = () => {
+  private readonly getIconsDeclarationFileContent = () => {
     const iconsMap = this.getIconsMap();
 
-    const names: string[] = [];
+    const writer = new DeclarationWriter(this.config);
 
-    const writer = new FileWriter(this.config);
-
-    return `/* eslint-disable */
-${writer.writeImports(iconsMap, names)}
-${writer.writeTypes(names)}
-${writer.writeVars(names)}
-    
-export { Icon }
-export type { Icons }
-`;
+    return writer.getFileContent(iconsMap);
   };
 
   private readonly generateSvgMap = () => {
-    const content = this.getIconsMapFileContent();
+    const content = this.getIconsDeclarationFileContent();
 
     if (!fs.existsSync(this.config.outputFolder)) {
       fs.mkdirSync(this.config.outputFolder, { recursive: true });

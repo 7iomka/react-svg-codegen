@@ -2,21 +2,23 @@ import type { Config, IconsMap } from '../types';
 import { Formatter } from './formatter';
 import path from 'path';
 
-class FileWriter {
+class DeclarationWriter {
   public constructor(private readonly config: Config) {}
 
-  public writeImports(iconsMap: IconsMap, importNames: string[]): string {
+  private readonly names: string[] = [];
+
+  public writeImports(iconsMap: IconsMap): string {
     return `${Object.entries(iconsMap || {})
       .map(([key, iconsMapValue]) => {
         if (typeof iconsMapValue === 'object') {
-          return this.writeImports(iconsMapValue, importNames);
+          return this.writeImports(iconsMapValue);
         }
 
         const importName = Formatter.toImportName(key);
 
-        importNames.push(importName);
+        this.names.push(importName);
 
-        const importPath = this.config.serveFromPublic
+        const importPath = this.config.servedFromPublic
           ? Formatter.getDirPathFromPublic(iconsMapValue)
           : Formatter.toImportPath(
               path.resolve(this.config.outputFolder),
@@ -26,7 +28,9 @@ class FileWriter {
         const importPathSuffix = this.config.sprite ? '?sprite' : '';
 
         const importPathPrefix =
-          this.config.serveFromPublic || importPath.startsWith('.') ? '' : './';
+          this.config.servedFromPublic || importPath.startsWith('.')
+            ? ''
+            : './';
 
         return `import ${importName} from '${importPathPrefix}${importPath}${importPathSuffix}';`;
       })
@@ -35,23 +39,32 @@ class FileWriter {
 `;
   }
 
-  public writeTypes(importNames: string[]): string {
-    if (!importNames.length) return '';
+  public writeTypes(): string {
+    if (!this.names.length) return '';
 
     return `
 type Icons = 
-  | ${importNames.map(name => `'${name}'`).join('\n  | ')}
+  | ${this.names.map(name => `'${name}'`).join('\n  | ')}
 `;
   }
 
-  public writeVars(importNames: string[]) {
+  public writeVars() {
     return `
-const Icon = ${JSON.stringify(importNames, null, 2)
+const Icon = ${JSON.stringify(this.names, null, 2)
       .replace(/"/g, '')
       .replace(/\[/g, '{')
       .replace(/]/g, '}')};
 `;
   }
+
+  public getFileContent = (iconsMap: IconsMap) => `/* eslint-disable */
+${this.writeImports(iconsMap)}
+${this.writeTypes()}
+${this.writeVars()}
+    
+export { Icon }
+export type { Icons }
+`;
 }
 
-export { FileWriter };
+export { DeclarationWriter };

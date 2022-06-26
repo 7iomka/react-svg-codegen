@@ -10,7 +10,7 @@ type Config = {
 
   watch: boolean;
 
-  serveFromPublic: true;
+  servedFromPublic: true;
 };
 
 type DirTreeInfo = {
@@ -20,8 +20,6 @@ type DirTreeInfo = {
   children?: DirTreeInfo[];
 };
 
-type StringMap<Value = string> = Record<string, Value>;
-
 type IconsMap = { [Key in string]: IconsMap | string };
 
-export type { Config, DirTreeInfo, StringMap, IconsMap };
+export type { Config, DirTreeInfo, IconsMap };

@@ -9,7 +9,7 @@ generateSVG({
 
     output: 'index.tsx',
 
-    serveFromPublic: true,
+    servedFromPublic: true,
 
     sprite: true,
 

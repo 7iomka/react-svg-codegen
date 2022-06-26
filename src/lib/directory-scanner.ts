@@ -23,4 +23,3 @@ class DirScanner {
 }
 
 export { DirScanner };
-export type { DirTreeInfo };
