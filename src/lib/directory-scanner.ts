@@ -1,12 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import type { DirTreeInfo } from '../types';
+import type { Config, DirectoryTreeInfo } from '../types';
+import { Formatter } from './formatter';
 
-class DirScanner {
-  public static getDirTree(folderPath: string) {
+class DirectoryScanner {
+  private static readonly getDirTree = (folderPath: string) => {
     const stats = fs.lstatSync(folderPath);
 
-    const info: DirTreeInfo = {
+    const info: DirectoryTreeInfo = {
       path: folderPath,
       name: path.basename(folderPath),
       type: stats.isDirectory() ? 'folder' : 'file'
@@ -15,11 +16,41 @@ class DirScanner {
     if (stats.isDirectory()) {
       info.children = fs
         .readdirSync(folderPath)
-        .map(child => DirScanner.getDirTree(`${folderPath}/${child}`));
+        .map(child => DirectoryScanner.getDirTree(`${folderPath}/${child}`));
     }
 
     return info;
-  }
+  };
+
+  public constructor(private readonly config: Config) {}
+
+  public readonly getSpriteIcons = () => {
+    const dir = DirectoryScanner.getDirTree(
+      path.resolve(this.config.iconsFolder, 'sprite')
+    );
+
+    const dirItems = dir.children ?? [];
+
+    return dirItems
+      .flatMap(Formatter.flatMapDir)
+      .filter(item => item.path.endsWith('.svg'))
+      .map(Formatter.dirToImport(this.config.iconsFolder));
+  };
+
+  public readonly getStandaloneIcons = (
+    relativeDir = this.config.iconsFolder
+  ) => {
+    const dir = DirectoryScanner.getDirTree(
+      path.resolve(this.config.iconsFolder, 'standalone')
+    );
+
+    const dirItems = dir.children ?? [];
+
+    return dirItems
+      .flatMap(Formatter.flatMapDir)
+      .filter(item => item.path.endsWith('.svg'))
+      .map(Formatter.dirToImport(relativeDir));
+  };
 }
 
-export { DirScanner };
+export { DirectoryScanner };

@@ -3,25 +3,8 @@ import path from 'path';
 import fs from 'fs';
 import type { includeFile } from 'eta/dist/types/file-handlers';
 
-import type { IconsMap } from '../types';
-import { Formatter } from './formatter';
-
 class Writer {
-  protected readonly names: string[] = [];
-
-  protected readonly prepareData = (iconsMap: IconsMap) => {
-    Object.entries(iconsMap || {}).forEach(([key, iconsMapValue]) => {
-      if (typeof iconsMapValue === 'object') {
-        this.prepareData(iconsMapValue);
-
-        return;
-      }
-
-      this.names.push(Formatter.toImportName(key));
-    });
-  };
-
-  protected getContentByTemplate = async (
+  public static getContentByTemplate = async (
     templatePath: Parameters<typeof Eta.renderFile>[0],
     data: Parameters<typeof Eta.renderFile>[1] = {},
     options: Partial<Parameters<typeof includeFile>[1]> = {}
@@ -35,14 +18,14 @@ class Writer {
       });
     });
 
-  protected writeContentToFile = (
+  public static writeContentToFile = (
     folderPath: string,
     filePath: string,
     content: string,
     options: {
       onError: (err: NodeJS.ErrnoException | null) => void;
       onSuccess: () => void;
-    }
+    } = { onError: () => {}, onSuccess: () => {} }
   ) => {
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });

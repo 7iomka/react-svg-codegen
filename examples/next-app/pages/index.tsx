@@ -39,69 +39,109 @@ const Home: NextPage = () => {
             </td>
           </tr>
 
-          <tr>
-            <td>
-              Sprite icon, only width added (height is auto computed from
-              viewbox aspect ratio)
-            </td>
+          {/*<tr>*/}
 
-            <td className={styles.iconTd}>
-              <Icon.ChevronRight width={48} />
-            </td>
-          </tr>
+          {/*  <td>*/}
 
-          <tr>
-            <td>
-              Standalone icon, no dimmensions (inherited or auto-added (if only
-              viewbox is present))
-            </td>
+          {/*    Sprite icon, only width added (height is auto computed from*/}
 
-            <td className={styles.iconTd}>
-              <Icon.Whatsapp />
-            </td>
-          </tr>
+          {/*    viewbox aspect ratio)*/}
 
-          <tr>
-            <td>
-              Standalone icon, only width added (height is auto computed from
-              viewbox aspect ratio)
-            </td>
+          {/*  </td>*/}
 
-            <td className={styles.iconTd}>
-              <Icon.Twitter width={48} />
-            </td>
-          </tr>
+          {/*  <td className={styles.iconTd}>*/}
 
-          <tr>
-            <td>Standalone two-colors icon (single color from currentColor)</td>
+          {/*    <Icon.ChevronRight width={48} />*/}
 
-            <td className={styles.iconTd}>
-              <Icon.Codepen width={48} height={48} />
-            </td>
-          </tr>
+          {/*  </td>*/}
 
-          <tr>
-            <td>
-              Standalone two-colors icon (single color from passed color
-              attribute)
-            </td>
+          {/*</tr>*/}
 
-            <td className={styles.iconTd}>
-              <Icon.Codepen width={48} height={48} color='red' />
-            </td>
-          </tr>
+          {/*<tr>*/}
 
-          <tr>
-            <td>
-              Standalone two-colors icon (one color from passed color attribute,
-              another - from fill attribute (source need to contain
-              fill="inherit" for filled icons and stroke="inherit" for stroked))
-            </td>
+          {/*  <td>*/}
 
-            <td className={styles.iconTd}>
-              <Icon.Codepen width={48} height={48} color='red' fill='blue' />
-            </td>
-          </tr>
+          {/*    Standalone icon, no dimmensions (inherited or auto-added (if only*/}
+
+          {/*    viewbox is present))*/}
+
+          {/*  </td>*/}
+
+          {/*  <td className={styles.iconTd}>*/}
+
+          {/*    <Icon.Whatsapp />*/}
+
+          {/*  </td>*/}
+
+          {/*</tr>*/}
+
+          {/*<tr>*/}
+
+          {/*  <td>*/}
+
+          {/*    Standalone icon, only width added (height is auto computed from*/}
+
+          {/*    viewbox aspect ratio)*/}
+
+          {/*  </td>*/}
+
+          {/*  <td className={styles.iconTd}>*/}
+
+          {/*    <Icon.Twitter width={48} />*/}
+
+          {/*  </td>*/}
+
+          {/*</tr>*/}
+
+          {/*<tr>*/}
+
+          {/*  <td>Standalone two-colors icon (single color from currentColor)</td>*/}
+
+          {/*  <td className={styles.iconTd}>*/}
+
+          {/*    <Icon.Codepen width={48} height={48} />*/}
+
+          {/*  </td>*/}
+
+          {/*</tr>*/}
+
+          {/*<tr>*/}
+
+          {/*  <td>*/}
+
+          {/*    Standalone two-colors icon (single color from passed color*/}
+
+          {/*    attribute)*/}
+
+          {/*  </td>*/}
+
+          {/*  <td className={styles.iconTd}>*/}
+
+          {/*    <Icon.Codepen width={48} height={48} color='red' />*/}
+
+          {/*  </td>*/}
+
+          {/*</tr>*/}
+
+          {/*<tr>*/}
+
+          {/*  <td>*/}
+
+          {/*    Standalone two-colors icon (one color from passed color attribute,*/}
+
+          {/*    another - from fill attribute (source need to contain*/}
+
+          {/*    fill="inherit" for filled icons and stroke="inherit" for stroked))*/}
+
+          {/*  </td>*/}
+
+          {/*  <td className={styles.iconTd}>*/}
+
+          {/*    <Icon.Codepen width={48} height={48} color='red' fill='blue' />*/}
+
+          {/*  </td>*/}
+
+          {/*</tr>*/}
         </table>
       </main>
 

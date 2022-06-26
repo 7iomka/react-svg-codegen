@@ -3,17 +3,15 @@ const path = require('path');
 
 
 generateSVG({
-    iconsFolder: path.resolve(__dirname, './public/deep/icons'),
-
-    outputFolder: path.resolve(__dirname, './src/shared/ui/icons'),
+    iconsFolder: path.resolve(__dirname, './src/shared/ui/icons'),
 
     templateFolder: path.resolve(__dirname,'../../templates'),
 
     output: 'index.tsx',
 
-    servedFromPublic: true,
+    servedFromPublic: false,
 
-    sprite: true,
+    sprite: false,
 
     watch: true,
 
