@@ -1,10 +1,10 @@
 import * as Eta from 'eta';
 import path from 'path';
 import fs from 'fs';
+import type { includeFile } from 'eta/dist/types/file-handlers';
 
 import type { IconsMap } from '../types';
-import { Formatter } from '../lib';
-import type { includeFile } from 'eta/dist/types/file-handlers';
+import { Formatter } from './formatter';
 
 class Writer {
   protected readonly names: string[] = [];

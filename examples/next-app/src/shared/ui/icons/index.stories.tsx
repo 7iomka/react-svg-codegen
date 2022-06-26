@@ -11,52 +11,42 @@ const PatchedIconItem = IconItem as FC<PropsWithChildren<IconItemProps>>;
 
 export const Playground: Story = () => (
   <PatchedIconGallery>
-     
-        <PatchedIconItem name='ChevronDown'>
-  <Icon.ChevronDown />
-</PatchedIconItem>
+    <PatchedIconItem name='ChevronDown'>
+      <Icon.ChevronDown />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='ChevronLeft'>
-  <Icon.ChevronLeft />
-</PatchedIconItem>
+    <PatchedIconItem name='ChevronLeft'>
+      <Icon.ChevronLeft />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='ChevronRight'>
-  <Icon.ChevronRight />
-</PatchedIconItem>
+    <PatchedIconItem name='ChevronRight'>
+      <Icon.ChevronRight />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='ChevronUp'>
-  <Icon.ChevronUp />
-</PatchedIconItem>
+    <PatchedIconItem name='ChevronUp'>
+      <Icon.ChevronUp />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='Codepen'>
-  <Icon.Codepen />
-</PatchedIconItem>
+    <PatchedIconItem name='Codepen'>
+      <Icon.Codepen />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='Telegram'>
-  <Icon.Telegram />
-</PatchedIconItem>
+    <PatchedIconItem name='Telegram'>
+      <Icon.Telegram />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='Twitter'>
-  <Icon.Twitter />
-</PatchedIconItem>
+    <PatchedIconItem name='Twitter'>
+      <Icon.Twitter />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='Vk'>
-  <Icon.Vk />
-</PatchedIconItem>
+    <PatchedIconItem name='Vk'>
+      <Icon.Vk />
+    </PatchedIconItem>
 
-     
-        <PatchedIconItem name='Whatsapp'>
-  <Icon.Whatsapp />
-</PatchedIconItem>
-
-       </PatchedIconGallery>
+    <PatchedIconItem name='Whatsapp'>
+      <Icon.Whatsapp />
+    </PatchedIconItem>
+  </PatchedIconGallery>
 );
 
 const story: Meta = {

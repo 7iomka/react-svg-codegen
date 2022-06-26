@@ -8,7 +8,6 @@ import Twitter from '/deep/icons/standalone/twitter.svg?sprite';
 import Vk from '/deep/icons/standalone/vk.svg?sprite';
 import Whatsapp from '/deep/icons/standalone/whatsapp.svg?sprite';
 
-
 const Icon = {
   ChevronDown,
   ChevronLeft,
@@ -19,6 +18,6 @@ const Icon = {
   Twitter,
   Vk,
   Whatsapp
-}
+};
 
-export { Icon }
+export { Icon };
