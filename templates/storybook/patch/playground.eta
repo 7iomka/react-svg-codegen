@@ -1,4 +1,4 @@
-const PatchedIconGallery = IconGallery as FC<PropsWithChildren>;
+const PatchedIconGallery = IconGallery as FC<PropsWithChildren<{}>>;
 const PatchedIconItem = IconItem as FC<PropsWithChildren<IconItemProps>>;
 
 export const Playground: Story = () => (
