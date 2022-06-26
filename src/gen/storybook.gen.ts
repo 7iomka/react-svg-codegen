@@ -8,16 +8,19 @@ class StorybookGen {
   private readonly getIcons = () => {
     const scanner = new DirectoryScanner(this.config);
 
-    return scanner.getSpriteIcons();
+    return {
+      sprite: scanner.getSpriteIcons(),
+      standalone: scanner.getStandaloneIcons()
+    };
   };
 
   public readonly write = async () => {
-    const icons = this.getIcons();
+    const { sprite: icons, standalone } = this.getIcons();
     const names = icons.map(({ importName }) => importName);
 
     const content = await Writer.getContentByTemplate(
       path.resolve(this.config.templateFolder, 'storybook', 'index.eta'),
-      { names, patchedFC: this.config.storybook?.patchFC ?? true }
+      { names, patchedFC: this.config.storybook?.patchFC ?? true, standalone }
     );
 
     Writer.writeContentToFile(

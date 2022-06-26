@@ -1,3 +1,3 @@
-import Codepen from './standalone/codepen.svg';
+import CodepenIcon from './standalone/codepen.svg';
 
-export { Codepen };
+export { CodepenIcon };

@@ -47,7 +47,7 @@ class DirectoryScanner {
     return dirItems
       .flatMap(Formatter.flatMapDir)
       .filter(item => item.path.endsWith('.svg'))
-      .map(Formatter.dirToImport(this.config.iconsFolder));
+      .map(Formatter.dirToImport(this.config.iconsFolder, 'Icon'));
   };
 }
 

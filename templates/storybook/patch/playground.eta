@@ -1,5 +1,3 @@
-import type { FC, PropsWithChildren } from 'react';
-
 const PatchedIconGallery = IconGallery as FC<PropsWithChildren>;
 const PatchedIconItem = IconItem as FC<PropsWithChildren<IconItemProps>>;
 
@@ -10,5 +8,35 @@ export const Playground: Story = () => (
         <%~ includeFile('./icon.eta', { name }) %>
 
      <% }) %>
+
+     <% it.standalone.forEach(({importName}) => { %>
+
+        <%~ includeFile('./standalone-icon.eta', { name: importName }) %>
+
+     <% }) %>
   </PatchedIconGallery>
 );
+
+
+
+export const Sprite: Story = () => (
+  <PatchedIconGallery>
+     <% it.names.forEach((name) => { %>
+
+        <%~ includeFile('./icon.eta', { name }) %>
+
+     <% }) %>
+  </PatchedIconGallery>
+);
+
+
+export const Standalone: Story = () => (
+  <PatchedIconGallery>
+      <% it.standalone.forEach(({importName}) => { %>
+
+             <%~ includeFile('./standalone-icon.eta', { name: importName }) %>
+
+      <% }) %>
+  </PatchedIconGallery>
+);
+

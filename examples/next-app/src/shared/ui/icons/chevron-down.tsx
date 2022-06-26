@@ -1,3 +1,3 @@
-import ChevronDown from './standalone/sprite/chevron-down.svg';
+import ChevronDownIcon from './standalone/sample/chevron-down.svg';
 
-export { ChevronDown };
+export { ChevronDownIcon };

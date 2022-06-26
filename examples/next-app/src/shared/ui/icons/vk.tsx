@@ -1,3 +1,3 @@
-import Vk from './standalone/vk.svg';
+import VkIcon from './standalone/vk.svg';
 
-export { Vk };
+export { VkIcon };

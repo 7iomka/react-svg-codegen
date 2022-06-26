@@ -1,3 +1,3 @@
-import Twitter from './standalone/twitter.svg';
+import TwitterIcon from './standalone/twitter.svg';
 
-export { Twitter };
+export { TwitterIcon };

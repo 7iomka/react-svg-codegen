@@ -1,3 +1,3 @@
-import ChevronUp from './standalone/sprite/chevron-up.svg';
+import ChevronUpIcon from './standalone/sample/chevron-up.svg';
 
-export { ChevronUp };
+export { ChevronUpIcon };

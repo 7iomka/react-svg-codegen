@@ -37,7 +37,7 @@ class Formatter {
   };
 
   public static readonly dirToImport =
-    (iconsFolder: string) =>
+    (iconsFolder: string, importNameSuffix = '') =>
     (
       item: DirectoryTreeInfo
     ): {
@@ -45,7 +45,7 @@ class Formatter {
       importPath: string;
       original: DirectoryTreeInfo;
     } => ({
-      importName: Formatter.toImportName(item.name),
+      importName: Formatter.toImportName(item.name) + importNameSuffix,
       importPath: Formatter.toImportPath(iconsFolder, item.path),
       original: item
     });

@@ -1,3 +1,3 @@
-import Whatsapp from './standalone/whatsapp.svg';
+import WhatsappIcon from './standalone/whatsapp.svg';
 
-export { Whatsapp };
+export { WhatsappIcon };

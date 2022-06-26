@@ -1,0 +1,3 @@
+<PatchedIconItem name='<%= it.name %>'>
+  <<%= it.name %> />
+</PatchedIconItem>

@@ -1,3 +1,3 @@
-import Telegram from './standalone/telegram.svg';
+import TelegramIcon from './standalone/telegram.svg';
 
-export { Telegram };
+export { TelegramIcon };
