@@ -5,6 +5,8 @@
   "scripts": {
     "build": "yarn rollup --config ./rollup.config.js"
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.js",
   "files": [
     "./dist",
     "./webpack",
@@ -16,6 +18,11 @@
     "slash": "3.0.0",
     "chokidar": "^3.5.3",
     "eta": "^1.12.3"
+  },
+  "peerDependencies": {
+    "@svgr/webpack": "^6.2.1",
+    "loader-utils": "2.0.0",
+    "svg-sprite-loader": "^6.0.11"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
