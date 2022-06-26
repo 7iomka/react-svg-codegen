@@ -15,5 +15,13 @@ generateSVG({
 
     watch: true,
 
-    logger: console
+    logger: console,
+
+    storybook:{
+        output:  'index.stories.tsx',
+
+        folder:path.resolve(__dirname, './src/shared/ui/icons'),
+
+        patchFC:true,
+    }
 })

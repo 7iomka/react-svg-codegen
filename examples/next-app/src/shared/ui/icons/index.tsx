@@ -10,7 +10,8 @@ import Vk from '/deep/icons/standalone/vk.svg?sprite';
 import Whatsapp from '/deep/icons/standalone/whatsapp.svg?sprite';
 
 
-type Icons =
+
+type Icons = 
   | 'ChevronDown'
   | 'ChevronLeft'
   | 'ChevronRight'
@@ -34,6 +35,6 @@ const Icon = {
   Whatsapp
 };
 
-
+    
 export { Icon }
 export type { Icons }

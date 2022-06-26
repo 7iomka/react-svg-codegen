@@ -11,6 +11,13 @@ type Config = {
   watch: boolean;
 
   servedFromPublic: true;
+
+  storybook: {
+    output: string;
+    folder: string;
+
+    patchFC: boolean;
+  };
 };
 
 type DirTreeInfo = {

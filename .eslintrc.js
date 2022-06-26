@@ -206,7 +206,6 @@ module.exports = {
 
     "import/no-internal-modules": "off",
     "import/group-exports": "error",
-    "import/exports-last": "error",
     "import/export": "error",
     "import/no-deprecated": "error",
 
