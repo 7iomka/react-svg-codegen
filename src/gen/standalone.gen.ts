@@ -1,5 +1,6 @@
 import type { Config } from '../types';
 import { DirectoryScanner, Writer } from '../lib';
+import path from 'path';
 
 class StandaloneGen {
   public constructor(private readonly config: Config) {}
@@ -13,20 +14,22 @@ class StandaloneGen {
   public readonly write = async () => {
     const icons = this.getIcons();
 
-    icons.forEach(({ importName, importPath, original }) => {
+    for (const { importName, importPath, original } of icons) {
+      const content = await Writer.getContentByTemplate(
+        path.resolve(this.config.templateFolder, 'standalone', 'index.eta'),
+        { importName, importPath }
+      );
+
       Writer.writeContentToFile(
         this.config.iconsFolder,
         original.name.replace('.svg', '.tsx'),
-        `import ${importName} from './${importPath}';
-        
-export { ${importName} };`,
+        content,
         {
-          onError: console.log,
           onSuccess: () =>
             console.log(`Success write for ${importName} ${importPath}`)
         }
       );
-    });
+    }
   };
 }
 

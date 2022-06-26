@@ -37,9 +37,7 @@ class DirectoryScanner {
       .map(Formatter.dirToImport(this.config.iconsFolder));
   };
 
-  public readonly getStandaloneIcons = (
-    relativeDir = this.config.iconsFolder
-  ) => {
+  public readonly getStandaloneIcons = () => {
     const dir = DirectoryScanner.getDirTree(
       path.resolve(this.config.iconsFolder, 'standalone')
     );
@@ -49,7 +47,7 @@ class DirectoryScanner {
     return dirItems
       .flatMap(Formatter.flatMapDir)
       .filter(item => item.path.endsWith('.svg'))
-      .map(Formatter.dirToImport(relativeDir));
+      .map(Formatter.dirToImport(this.config.iconsFolder));
   };
 }
 

@@ -1,0 +1,3 @@
+import <%~ it.importName %> from './<%= it.importPath %>';
+
+export { <%~ it.importName %> };

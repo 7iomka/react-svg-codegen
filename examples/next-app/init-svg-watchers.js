@@ -9,13 +9,9 @@ generateSVG({
 
     output: 'index.tsx',
 
-    servedFromPublic: false,
-
-    sprite: false,
 
     watch: true,
 
-    logger: console,
 
     storybook:{
         output:  'index.stories.tsx',

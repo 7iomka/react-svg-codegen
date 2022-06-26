@@ -22,10 +22,10 @@ class Writer {
     folderPath: string,
     filePath: string,
     content: string,
-    options: {
-      onError: (err: NodeJS.ErrnoException | null) => void;
-      onSuccess: () => void;
-    } = { onError: () => {}, onSuccess: () => {} }
+    options?: {
+      onError?: (err: NodeJS.ErrnoException | null) => void;
+      onSuccess?: () => void;
+    }
   ) => {
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });
@@ -33,12 +33,12 @@ class Writer {
 
     fs.writeFile(path.resolve(folderPath, filePath), content, err => {
       if (err) {
-        options.onError(err);
+        options?.onError?.(err);
 
         return;
       }
 
-      options.onSuccess();
+      options?.onSuccess?.();
     });
   };
 }

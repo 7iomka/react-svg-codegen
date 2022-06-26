@@ -11,22 +11,27 @@ const PatchedIconItem = IconItem as FC<PropsWithChildren<IconItemProps>>;
 
 export const Playground: Story = () => (
   <PatchedIconGallery>
-    <PatchedIconItem name='ChevronDown'>
-      <Icon.ChevronDown />
-    </PatchedIconItem>
+     
+        <PatchedIconItem name='ChevronDown'>
+  <Icon.ChevronDown />
+</PatchedIconItem>
 
-    <PatchedIconItem name='ChevronLeft'>
-      <Icon.ChevronLeft />
-    </PatchedIconItem>
+     
+        <PatchedIconItem name='ChevronLeft'>
+  <Icon.ChevronLeft />
+</PatchedIconItem>
 
-    <PatchedIconItem name='ChevronRight'>
-      <Icon.ChevronRight />
-    </PatchedIconItem>
+     
+        <PatchedIconItem name='ChevronRight'>
+  <Icon.ChevronRight />
+</PatchedIconItem>
 
-    <PatchedIconItem name='ChevronUp'>
-      <Icon.ChevronUp />
-    </PatchedIconItem>
-  </PatchedIconGallery>
+     
+        <PatchedIconItem name='ChevronUp'>
+  <Icon.ChevronUp />
+</PatchedIconItem>
+
+       </PatchedIconGallery>
 );
 
 const story: Meta = {
