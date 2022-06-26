@@ -1,8 +1,8 @@
 /* eslint-disable */
-import React from 'react';
-import cx from 'clsx';
-import SpriteSymbol from '$$symbolRequest$$';
-import sprite from '$$spriteRequest$$';
+import React from 'react'
+import SpriteSymbol from '$$symbolRequest$$'
+import sprite from '$$spriteRequest$$'
+
 
 const symbol = new SpriteSymbol($$stringifiedSymbol$$);
 sprite.add(symbol);
@@ -25,13 +25,14 @@ const SvgSpriteIcon = function SvgSpriteIcon(props = {}) {
   const width = propWidth || Math.floor(propHeight * aspectRatio) || symbol.width || '1em';
   const height = propHeight || Math.floor(propWidth / aspectRatio) || symbol.height || '1em';
 
+
   return React.createElement(
     'svg',
     {
       viewBox,
       width,
       height,
-      className: cx('c-sprite-icon', className),
+      className: ['c-sprite-icon', className].filter(Boolean).join(' '),
       ...restProps,
     },
     React.createElement('use', {

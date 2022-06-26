@@ -3,11 +3,6 @@ const path = require('path');
 const { stringifyRequest } = require('loader-utils'); // v2.0.0
 const { stringifySymbol } = require('svg-sprite-loader/lib/utils');
 
-// const stringifyRequest = (loaderContext, request) => {
-//   console.log('loaderContext', loaderContext);
-//   return JSON.stringify(loaderContext.utils.contextify(loaderContext.context || loaderContext.rootContext, request));
-// };
-
 /**
  * Defines the runtime generator for the svg sprite loader
  *

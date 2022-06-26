@@ -3,7 +3,7 @@ const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 const svgrTemplate = require('./svgrc-template');
 
 const svgConfig = (webpackConfig, { isServer } = { isServer: false }) => {
-  // generate svg map file on build (only in dev, 
+  // generate svg map file on build (only in dev,
   // and only once (for next.js, bc. it runs twice for server and client))
   if (process.env.NODE_ENV === 'development' && !isServer) {
     webpackConfig.plugins.push(
@@ -65,6 +65,4 @@ const svgConfig = (webpackConfig, { isServer } = { isServer: false }) => {
 };
 
 
-module.exports = {
-  svgConfig,
-};
+module.exports = { svgConfig };

@@ -1,11 +1,11 @@
-const { svgConfig } = require('../../webpack-helpers');
+const { svgConfig } = require('../../webpack');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack: (config, { isServer, buildId, webpack }) => {
+  webpack: (config, { isServer }) => {
     svgConfig(config, { isServer });
-    
+
     return config;
   },
 }
