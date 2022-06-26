@@ -7,6 +7,8 @@ generateSVG({
 
     outputFolder: path.resolve(__dirname, './src/shared/ui/icons'),
 
+    templateFolder: path.resolve(__dirname,'../../templates'),
+
     output: 'index.tsx',
 
     servedFromPublic: true,

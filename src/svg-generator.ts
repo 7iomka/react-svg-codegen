@@ -1,18 +1,46 @@
-import fs from 'fs';
-import path from 'path';
 import type { FSWatcher } from 'chokidar';
 import chokidar from 'chokidar';
 
-import { DeclarationWriter, DirScanner } from './lib';
-import type { Config, DirTreeInfo, IconsMap } from './types';
-import { StorybookWriter } from './lib/storybook-writer';
+import { DirScanner } from './lib';
+import type {
+  Config,
+  DefaultConfig,
+  DirTreeInfo,
+  IconsMap,
+  PublicConfig,
+  StorybookDefaultConfig
+} from './types';
+import { DeclarationWriter, StorybookWriter } from './writers';
 
 class SVGGenerator {
-  public constructor(private readonly config: Config) {}
+  private static readonly DEFAULT_CONFIG: DefaultConfig = {
+    watch: false,
+    sprite: true,
+    servedFromPublic: false,
+    logger: console,
+    generateTypes: false
+  };
+
+  private static readonly DEFAULT_STORYBOOK_CONFIG: StorybookDefaultConfig = {
+    patchFC: true
+  };
+
+  public constructor(config: PublicConfig) {
+    Object.assign(this.config, { ...SVGGenerator.DEFAULT_CONFIG, ...config });
+
+    if (!config.storybook) return;
+
+    Object.assign(this.config, {
+      storybook: {
+        ...SVGGenerator.DEFAULT_STORYBOOK_CONFIG,
+        ...config.storybook
+      }
+    });
+  }
+
+  private readonly config: Config = {} as Config;
 
   private isWatching = false;
-
-  private watcher: null | FSWatcher = null;
 
   private readonly getIconsMap = () => {
     const rootDir = DirScanner.getDirTree(this.config.iconsFolder);
@@ -40,93 +68,48 @@ class SVGGenerator {
     map[dirInfo.name] = dirInfo.path;
   };
 
-  private readonly getIconsDeclarationFileContent = () => {
+  private readonly generateStorybookDocs = async () => {
+    if (!this.config.storybook) return;
+
+    const iconsMap = this.getIconsMap();
+
+    const writer = new StorybookWriter(this.config, this.config.storybook);
+
+    writer.write(iconsMap);
+  };
+
+  private readonly generateSVGDeclaration = () => {
     const iconsMap = this.getIconsMap();
 
     const writer = new DeclarationWriter(this.config);
 
-    return writer.getFileContent(iconsMap);
+    writer.write(iconsMap);
   };
 
-  private readonly generateStorybookDocs = () => {
-    const iconsMap = this.getIconsMap();
-
-    const writer = new StorybookWriter(this.config);
-
-    const content = writer.getContent(iconsMap);
-
-    if (!fs.existsSync(this.config.storybook.folder)) {
-      fs.mkdirSync(this.config.storybook.folder, { recursive: true });
-    }
-
-    fs.writeFile(
-      path.resolve(this.config.storybook.folder, this.config.storybook.output),
-      content,
-      err => {
-        if (err) {
-          this.config.logger.error(err);
-
-          return;
-        }
-
-        this.config.logger.info('SVG Storybook: docs was generated');
-      }
-    );
-  };
-
-  private readonly generateSvgMap = () => {
-    const content = this.getIconsDeclarationFileContent();
-
-    if (!fs.existsSync(this.config.outputFolder)) {
-      fs.mkdirSync(this.config.outputFolder, { recursive: true });
-    }
-
-    fs.writeFile(
-      path.resolve(this.config.outputFolder, this.config.output),
-      content,
-      err => {
-        if (err) {
-          this.config.logger.error(err);
-
-          return;
-        }
-
-        this.config.logger.info('SVG: map was generated');
-      }
-    );
-  };
-
-  private readonly attachWatchers = () => {
-    if (!this.watcher) return;
-
-    this.watcher.on('change', pth => {
+  private readonly attachWatchers = (watcher: FSWatcher) => {
+    watcher.on('change', pth => {
       this.config.logger.log('SVG: path changed', pth);
-      this.generateSvgMap();
-      this.generateStorybookDocs();
+      this.generate();
     });
 
-    this.watcher.on('add', pth => {
+    watcher.on('add', pth => {
       this.config.logger.log('SVG: path added', pth);
-      this.generateSvgMap();
-      this.generateStorybookDocs();
+      this.generate();
     });
 
-    this.watcher.on('addDir', pth => {
+    watcher.on('addDir', pth => {
       this.config.logger.log('SVG: dir added', pth);
-      this.generateSvgMap();
-      this.generateStorybookDocs();
+      this.generate();
     });
 
-    this.watcher.on('unlink', pth => {
+    watcher.on('unlink', pth => {
       this.config.logger.log('SVG: path removed', pth);
-      this.generateSvgMap();
-      this.generateStorybookDocs();
+      this.generate();
     });
 
-    this.watcher.on('unlinkDir', pth => {
+    watcher.on('unlinkDir', pth => {
       this.config.logger.log('SVG: dir removed', pth);
-      this.generateSvgMap();
-      this.generateStorybookDocs();
+      this.generate();
     });
 
     this.config.logger.log('SVG: watch mode is enabled');
@@ -137,7 +120,7 @@ class SVGGenerator {
 
     this.isWatching = true;
 
-    this.watcher = chokidar.watch([`${this.config.iconsFolder}/**/*`], {
+    const watcher = chokidar.watch([`${this.config.iconsFolder}/**/*`], {
       ignored: [`${this.config.iconsFolder}/*.tsx`],
       ignoreInitial: true,
       persistent: true,
@@ -145,12 +128,19 @@ class SVGGenerator {
       depth: 4
     });
 
-    this.attachWatchers();
+    this.attachWatchers(watcher);
+  };
+
+  private readonly generate = () => {
+    this.generateSVGDeclaration();
+
+    if (!this.config.storybook) return;
+
+    this.generateStorybookDocs();
   };
 
   public readonly init = () => {
-    this.generateSvgMap();
-    this.generateStorybookDocs();
+    this.generate();
 
     if (!this.config.watch) return;
 

@@ -7,7 +7,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import bundleSize from 'rollup-plugin-bundle-size'
 
 
-const external = ['path', 'slash','fs','chokidar'];
+const external = ['path', 'slash', 'fs', 'chokidar', 'eta'];
 
 const plugins =  [
   typescript({

@@ -1,7 +1,7 @@
 import { SVGGenerator } from './svg-generator';
-import type { Config } from './types';
+import type { PublicConfig } from './types';
 
-function generateSVG(config: Config) {
+function generateSVG(config: PublicConfig) {
   new SVGGenerator(config).init();
 }
 

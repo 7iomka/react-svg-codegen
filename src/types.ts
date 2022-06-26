@@ -1,24 +1,42 @@
-type Config = {
+type Config = Omit<Required<PublicConfig>, 'storybook'> & {
+  storybook?: StorybookConfig;
+};
+
+type PublicConfig = {
   iconsFolder: string;
   outputFolder: string;
+  templateFolder: string;
 
   output: string;
 
-  sprite: boolean;
+  sprite?: boolean;
 
-  logger: Pick<Console, 'log' | 'error' | 'info'>;
+  logger?: Pick<Console, 'log' | 'error' | 'info'>;
 
-  watch: boolean;
+  watch?: boolean;
 
-  servedFromPublic: true;
+  servedFromPublic?: boolean;
 
-  storybook: {
-    output: string;
-    folder: string;
+  generateTypes?: boolean;
 
-    patchFC: boolean;
-  };
+  storybook?: PublicStorybookConfig;
 };
+
+type PublicStorybookConfig = {
+  output: string;
+  folder: string;
+
+  patchFC?: boolean;
+};
+
+type StorybookConfig = Required<PublicStorybookConfig>;
+
+type DefaultConfig = Pick<
+  Config,
+  'watch' | 'sprite' | 'servedFromPublic' | 'logger' | 'generateTypes'
+>;
+
+type StorybookDefaultConfig = Pick<PublicStorybookConfig, 'patchFC'>;
 
 type DirTreeInfo = {
   path: string;
@@ -29,4 +47,13 @@ type DirTreeInfo = {
 
 type IconsMap = { [Key in string]: IconsMap | string };
 
-export type { Config, DirTreeInfo, IconsMap };
+export type {
+  Config,
+  IconsMap,
+  DirTreeInfo,
+  PublicConfig,
+  DefaultConfig,
+  StorybookConfig,
+  StorybookDefaultConfig,
+  PublicStorybookConfig
+};

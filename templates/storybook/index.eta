@@ -1,0 +1,11 @@
+import type { Meta, Story } from '@storybook/react';
+import { IconGallery, IconItem } from '@storybook/addon-docs';
+import type { IconItemProps } from '@storybook/components';
+
+import { Icon } from './index';
+
+<%~ includeFile(it.patchedFC ? './patch/playground.eta' : './playground.eta' , it) %>
+
+<%~ includeFile('./config.eta',it) %>
+
+export default story;
