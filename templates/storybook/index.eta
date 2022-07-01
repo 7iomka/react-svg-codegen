@@ -1,14 +1,23 @@
 import type { Meta, Story } from '@storybook/react';
-import { IconGallery, IconItem } from '@storybook/addon-docs';
 import type { IconItemProps } from '@storybook/components';
-<%~ it.patchedFC ? `import type { FC, PropsWithChildren } from 'react';` : '' %>
-
 
 import { Icon } from '../index';
 
 <%~ includeFile('./standalone-imports.eta', it) %>
 
-<%~ includeFile(it.patchedFC ? './patch/playground.eta' : './playground.eta' , it) %>
+<%= it.patchedFC
+    ? `
+import type { FC, PropsWithChildren } from 'react';
+import { IconGallery as _IconGallery, IconItem as _IconItem } from '@storybook/addon-docs';
+
+const IconGallery = _IconGallery as FC<PropsWithChildren<{}>>;
+const IconItem = _IconItem as FC<PropsWithChildren<IconItemProps>>;
+`
+    : `import { IconGallery , IconItem } from '@storybook/addon-docs';`
+%>
+
+
+<%~ includeFile('./playground.eta' , it) %>
 
 <%~ includeFile('./config.eta',it) %>
 

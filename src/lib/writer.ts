@@ -10,6 +10,8 @@ class Writer {
     options: Partial<Parameters<typeof includeFile>[1]> = {}
   ) =>
     new Promise<string>((resolve, reject) => {
+      Eta.configure({ autoEscape: false });
+
       Eta.renderFile(templatePath, data, options, (err, str) => {
         if (err || !str) {
           return reject(err);

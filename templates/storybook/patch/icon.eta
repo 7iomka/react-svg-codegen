@@ -1,3 +1,0 @@
-<PatchedIconItem name='Icon.<%= it.name %>'>
-  <Icon.<%= it.name %> />
-</PatchedIconItem>
