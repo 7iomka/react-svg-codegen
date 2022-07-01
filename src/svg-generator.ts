@@ -1,12 +1,6 @@
-import type {
-  Config,
-  DefaultConfig,
-  PublicConfig,
-  StorybookDefaultConfig
-} from './types';
+import type { Config, DefaultConfig, PublicConfig } from './types';
 import { Watcher } from './watcher';
-import { SpriteGen, StorybookGen } from './gen';
-import { StandaloneGen } from './gen/standalone.gen';
+import { SpriteGen, StandaloneGen, StorybookGen } from './gen';
 
 class SVGGenerator {
   private static readonly DEFAULT_CONFIG: DefaultConfig = {
@@ -14,21 +8,8 @@ class SVGGenerator {
     generateTypes: false
   };
 
-  private static readonly DEFAULT_STORYBOOK_CONFIG: StorybookDefaultConfig = {
-    patchFC: true
-  };
-
   public constructor(config: PublicConfig) {
-    Object.assign(this.config, { ...SVGGenerator.DEFAULT_CONFIG, ...config });
-
-    if (!config.storybook) return;
-
-    Object.assign(this.config, {
-      storybook: {
-        ...SVGGenerator.DEFAULT_STORYBOOK_CONFIG,
-        ...config.storybook
-      }
-    });
+    Object.assign(this.config, SVGGenerator.DEFAULT_CONFIG, config);
   }
 
   private readonly config: Config = {} as Config;

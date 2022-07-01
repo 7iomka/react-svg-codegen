@@ -15,23 +15,25 @@ class StorybookGen {
   };
 
   public readonly write = async () => {
-    const { sprite: icons, standalone } = this.getIcons();
-    const names = icons.map(({ importName }) => importName);
+    const { sprite, standalone } = this.getIcons();
+    const names = sprite.map(({ importName }) => importName);
 
-    const content = await Writer.getContentByTemplate(
-      path.resolve(this.config.templateFolder, 'storybook', 'index.eta'),
-      { names, patchedFC: this.config.storybook?.patchFC ?? true, standalone }
-    );
+    try {
+      const content = await Writer.getContentByTemplate(
+        path.resolve(this.config.templateFolder, 'storybook', 'index.eta'),
+        { names, patchedFC: true, standalone }
+      );
 
-    Writer.writeContentToFile(
-      path.join(this.config.iconsFolder, 'docs'),
-      this.config.storybook?.output ?? 'index.stories.tsx',
-      content,
-      {
-        onError: err => console.error(err),
-        onSuccess: () => console.info('SVG: docs was generated')
-      }
-    );
+      await Writer.writeContentToFile(
+        path.join(this.config.iconsFolder, 'docs'),
+        'index.stories.tsx',
+        content
+      );
+
+      console.info('SVG: docs was generated');
+    } catch (e) {
+      console.error(e);
+    }
   };
 }
 

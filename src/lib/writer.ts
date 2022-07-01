@@ -18,27 +18,19 @@ class Writer {
       });
     });
 
-  public static writeContentToFile = (
+  public static writeContentToFile = async (
     folderPath: string,
     filePath: string,
-    content: string,
-    options?: {
-      onError?: (err: NodeJS.ErrnoException | null) => void;
-      onSuccess?: () => void;
-    }
+    content: string
   ) => {
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath, { recursive: true });
     }
 
-    fs.writeFile(path.resolve(folderPath, filePath), content, err => {
-      if (err) {
-        options?.onError?.(err);
-
-        return;
-      }
-
-      options?.onSuccess?.();
+    return new Promise<void>((resolve, reject) => {
+      fs.writeFile(path.resolve(folderPath, filePath), content, err =>
+        err ? reject(err) : resolve()
+      );
     });
   };
 }

@@ -15,20 +15,22 @@ class StandaloneGen {
     const icons = this.getIcons();
 
     for (const { importName, importPath, original } of icons) {
-      const content = await Writer.getContentByTemplate(
-        path.resolve(this.config.templateFolder, 'standalone', 'index.eta'),
-        { importName, importPath }
-      );
+      try {
+        const content = await Writer.getContentByTemplate(
+          path.resolve(this.config.templateFolder, 'standalone', 'index.eta'),
+          { importName, importPath }
+        );
 
-      Writer.writeContentToFile(
-        this.config.iconsFolder,
-        original.name.replace('.svg', '.tsx'),
-        content,
-        {
-          onSuccess: () =>
-            console.log(`Success write for ${importName} ${importPath}`)
-        }
-      );
+        await Writer.writeContentToFile(
+          this.config.iconsFolder,
+          original.name.replace('.svg', '.tsx'),
+          content
+        );
+
+        console.log(`Success write for ${importName} ${importPath}`);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 }

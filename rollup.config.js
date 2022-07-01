@@ -7,68 +7,78 @@ import commonjs from '@rollup/plugin-commonjs'
 import bundleSize from 'rollup-plugin-bundle-size'
 
 
-const external = ['path', 'slash', 'fs', 'chokidar', 'eta','prettier'];
+const external = [
+	'path',
+	'slash',
+	'fs',
+	'chokidar',
+	'eta',
+	'prettier',
+	'svg-sprite-loader',
+	'react',
+	'react-dom'
+]
 
-const plugins =  [
-  typescript({
-    clean: true
-  }),
+const plugins = [
+	typescript({
+		clean: true
+	}),
 
-  babel({
-    exclude: ['node_modules/**'],
+	babel({
+		exclude: ['node_modules/**'],
 
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx'],
 
-    runtimeHelpers: true,
+		runtimeHelpers: true,
 
-    presets: [
-      '@babel/preset-env',
-      '@babel/preset-typescript',
-    ],
-  }),
+		presets: [
+			'@babel/preset-env',
+			'@babel/preset-typescript',
+		],
+	}),
 
-  nodeResolve({
-    jsnext: true,
+	nodeResolve({
+		jsnext: true,
 
-    skip: [],
+		skip: [],
 
-    extensions: ['.js', '.mjs']
-  }),
+		extensions: ['.js', '.mjs']
+	}),
 
-  commonjs({
-    extensions: ['.js', '.mjs']
-  }),
+	commonjs({
+		extensions: ['.js', '.mjs']
+	}),
 
-  terser(),
+	terser(),
 
-  jsonPlugin(),
+	jsonPlugin(),
 
-  bundleSize()
-];
+	bundleSize()
+]
 
 const output = {
 
-  file: './dist/index.js',
+	file: './dist/index.js',
 
-  format: 'cjs',
+	format: 'cjs',
 
-  freeze: false,
+	freeze: false,
 
-  exports: 'named',
+	exports: 'named',
 
-  sourcemap: true,
+	sourcemap: true,
 
-  externalLiveBindings: false
-};
+	externalLiveBindings: false
+}
 
 export default [
-  {
-    input: './src/index.ts',
+	{
+		input: './src/index.ts',
 
-    plugins,
+		plugins,
 
-    external,
+		external,
 
-    output
-  }
-];
+		output
+	}
+]
