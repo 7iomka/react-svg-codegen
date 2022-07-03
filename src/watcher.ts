@@ -1,49 +1,14 @@
-import type { FSWatcher } from 'chokidar';
 import chokidar from 'chokidar';
 import type { Config } from './types';
 
 class Watcher {
   public constructor(
     private readonly config: Config,
-    private readonly onChange: () => void
+    private readonly onChange: () => void,
+    private readonly onDelete: (deletedFilePath: string) => void
   ) {}
 
   private isWatching = false;
-
-  private readonly attachWatchers = (watcher: FSWatcher) => {
-    this.watch(watcher, 'change', path => {
-      console.log('SVG: path changed', path);
-    });
-
-    this.watch(watcher, 'add', path => {
-      console.log('SVG: path added', path);
-    });
-
-    this.watch(watcher, 'addDir', path => {
-      console.log('SVG: dir added', path);
-    });
-
-    this.watch(watcher, 'unlink', path => {
-      console.log('SVG: path removed', path);
-    });
-
-    this.watch(watcher, 'unlinkDir', path => {
-      console.log('SVG: dir removed', path);
-    });
-
-    console.log('SVG: watch mode is enabled');
-  };
-
-  private readonly watch = (
-    watcher: FSWatcher,
-    method: Parameters<FSWatcher['on']>[0],
-    cb: (path: string) => void
-  ) => {
-    watcher.on(method, path => {
-      cb(path);
-      this.onChange();
-    });
-  };
 
   public readonly init = () => {
     if (this.isWatching) return;
@@ -54,11 +19,26 @@ class Watcher {
       ignored: [`${this.config.iconsFolder}/**/*.tsx`],
       ignoreInitial: true,
       persistent: true,
-      ignorePermissionErrors: true,
-      depth: 4
+      ignorePermissionErrors: true
     });
 
-    this.attachWatchers(watcher);
+    watcher.on('change', path => {
+      this.onChange();
+      console.log('SVG: path changed', path);
+    });
+
+    watcher.on('add', path => {
+      this.onChange();
+      console.log('SVG: path added', path);
+    });
+
+    watcher.on('unlink', path => {
+      this.onChange();
+      this.onDelete(path);
+      console.log('SVG: path removed', path);
+    });
+
+    console.log('SVG: watch mode is enabled');
   };
 }
 

@@ -22,11 +22,17 @@ class DirectoryScanner {
     return info;
   };
 
+  public static readonly getSpriteFolderPath = (config: Config) =>
+    path.resolve(config.iconsFolder, 'sprite');
+
+  public static readonly getStandaloneFolderPath = (config: Config) =>
+    path.resolve(config.iconsFolder, 'standalone');
+
   public constructor(private readonly config: Config) {}
 
   public readonly getSpriteIcons = () => {
     const dir = DirectoryScanner.getDirTree(
-      path.resolve(this.config.iconsFolder, 'sprite')
+      DirectoryScanner.getSpriteFolderPath(this.config)
     );
 
     const dirItems = dir.children ?? [];
@@ -39,7 +45,7 @@ class DirectoryScanner {
 
   public readonly getStandaloneIcons = () => {
     const dir = DirectoryScanner.getDirTree(
-      path.resolve(this.config.iconsFolder, 'standalone')
+      DirectoryScanner.getStandaloneFolderPath(this.config)
     );
 
     const dirItems = dir.children ?? [];

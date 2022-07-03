@@ -28,13 +28,10 @@ class Formatter {
 
   public static readonly flatMapDir = (
     item: DirectoryTreeInfo
-  ): DirectoryTreeInfo | DirectoryTreeInfo[] => {
-    if (item.type === 'file') {
-      return item;
-    }
-
-    return (item.children ?? []).flatMap(this.flatMapDir);
-  };
+  ): DirectoryTreeInfo | DirectoryTreeInfo[] =>
+    item.type === 'file'
+      ? item
+      : (item.children ?? []).flatMap(this.flatMapDir);
 
   public static readonly dirToImport =
     (iconsFolder: string, importNameSuffix = '') =>
@@ -49,6 +46,9 @@ class Formatter {
       importPath: Formatter.toImportPath(iconsFolder, item.path),
       original: item
     });
+
+  public static readonly svgToTsx = (path: string) =>
+    path.replace('.svg', '.tsx');
 }
 
 export { Formatter };

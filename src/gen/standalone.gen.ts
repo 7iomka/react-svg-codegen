@@ -1,37 +1,31 @@
 import type { Config } from '../types';
-import { DirectoryScanner, Writer } from '../lib';
+import { DirectoryScanner, Formatter, Writer } from '../lib';
 import path from 'path';
 
 class StandaloneGen {
   public constructor(private readonly config: Config) {}
 
-  private readonly getIcons = () => {
-    const scanner = new DirectoryScanner(this.config);
-
-    return scanner.getStandaloneIcons();
-  };
-
   public readonly write = async () => {
-    const icons = this.getIcons();
+    const icons = new DirectoryScanner(this.config).getStandaloneIcons();
 
     for (const { importName, importPath, original } of icons) {
       try {
         const content = await Writer.getContentByTemplate(
-          path.resolve(this.config.templateFolder, 'standalone', 'index.eta'),
+          path.resolve(this.config.templateFolder, 'standalone'),
           { importName, importPath }
         );
 
         await Writer.writeContentToFile(
           this.config.iconsFolder,
-          original.name.replace('.svg', '.tsx'),
+          Formatter.svgToTsx(original.name),
           content
         );
-
-        console.log(`Success write for ${importName} ${importPath}`);
       } catch (e) {
-        console.error(e);
+        console.log(e);
       }
     }
+
+    console.log('SVG: standalone was generated');
   };
 }
 

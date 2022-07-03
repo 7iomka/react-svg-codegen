@@ -1,6 +1,8 @@
 import * as Eta from 'eta';
 import path from 'path';
 import fs from 'fs';
+import { writeFile } from 'fs/promises';
+
 import type { includeFile } from 'eta/dist/types/file-handlers';
 
 class Writer {
@@ -12,12 +14,17 @@ class Writer {
     new Promise<string>((resolve, reject) => {
       Eta.configure({ autoEscape: false });
 
-      Eta.renderFile(templatePath, data, options, (err, str) => {
-        if (err || !str) {
-          return reject(err);
+      Eta.renderFile(
+        path.join(templatePath, 'index.eta'),
+        data,
+        options,
+        (err, str) => {
+          if (err || !str) {
+            return reject(err);
+          }
+          resolve(str);
         }
-        resolve(str);
-      });
+      );
     });
 
   public static writeContentToFile = async (
@@ -29,11 +36,7 @@ class Writer {
       fs.mkdirSync(folderPath, { recursive: true });
     }
 
-    return new Promise<void>((resolve, reject) => {
-      fs.writeFile(path.resolve(folderPath, filePath), content, err =>
-        err ? reject(err) : resolve()
-      );
-    });
+    return writeFile(path.resolve(folderPath, filePath), content);
   };
 }
 

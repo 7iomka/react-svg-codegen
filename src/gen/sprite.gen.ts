@@ -1,24 +1,19 @@
-import path from 'path';
-
 import type { Config } from '../types';
 import { DirectoryScanner, Writer } from '../lib';
+import path from 'path';
 
 class SpriteGen {
   public constructor(private readonly config: Config) {}
 
-  private readonly getIcons = () => {
-    const scanner = new DirectoryScanner(this.config);
-
-    return scanner.getSpriteIcons();
-  };
-
   public readonly write = async () => {
-    const icons = this.getIcons();
+    const scanner = new DirectoryScanner(this.config);
+    const icons = scanner.getSpriteIcons();
+
     const names = icons.map(({ importName }) => importName);
 
     try {
       const content = await Writer.getContentByTemplate(
-        path.resolve(this.config.templateFolder, 'sprite', 'index.eta'),
+        path.resolve(this.config.templateFolder, 'sprite'),
         {
           icons,
           iconsDeclaration: JSON.stringify(names, null, 2)
@@ -34,9 +29,9 @@ class SpriteGen {
         content
       );
 
-      console.info('SVG: map was generated');
+      console.log('SVG: map was generated');
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   };
 }
