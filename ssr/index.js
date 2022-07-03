@@ -1,1 +1,3 @@
-export { default as spriteContent } from 'svg-sprite-loader/runtime/sprite.build';
+const spriteContent = require('svg-sprite-loader/runtime/sprite.build')
+
+module.exports = { spriteContent }
