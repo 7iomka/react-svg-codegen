@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "license": "MIT",
   "scripts": {
-    "build": "yarn rollup --config ./rollup.config.js"
+    "build": "rollup --config ./rollup.config.js"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
