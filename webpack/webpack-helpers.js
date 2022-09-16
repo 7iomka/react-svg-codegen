@@ -14,6 +14,7 @@ const svgConfig = (webpackConfig, { isServer } = { isServer: false }) => {
             loader: 'svg-sprite-loader',
             options: {
               runtimeGenerator: require.resolve(
+                spriteModule: 'svg-sprite-loader/runtime/sprite.build',
                 path.resolve(__dirname, './svg-runtime-generator'),
               ),
             },
