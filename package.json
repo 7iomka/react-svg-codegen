@@ -1,6 +1,6 @@
 {
   "name": "react-svg-codegen",
-  "version": "0.0.19",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "build": "yarn rollup --config ./rollup.config.js"
