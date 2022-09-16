@@ -1,0 +1,37 @@
+export const Playground: Story = () => (
+  <IconGallery>
+     <% it.names.forEach((name) => { %>
+
+        <%~ includeFile('./icon.eta', { name }) %>
+
+     <% }) %>
+
+     <% it.standalone.forEach(({importName}) => { %>
+
+        <%~ includeFile('./standalone-icon.eta', { name: importName }) %>
+
+     <% }) %>
+  </IconGallery>
+);
+
+
+export const Sprite: Story = () => (
+  <IconGallery>
+     <% it.names.forEach((name) => { %>
+
+        <%~ includeFile('./icon.eta', { name }) %>
+
+     <% }) %>
+  </IconGallery>
+);
+
+
+export const Standalone: Story = () => (
+  <IconGallery>
+      <% it.standalone.forEach(({importName}) => { %>
+
+             <%~ includeFile('./standalone-icon.eta', { name: importName }) %>
+
+      <% }) %>
+  </IconGallery>
+);

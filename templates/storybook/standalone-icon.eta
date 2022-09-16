@@ -1,0 +1,3 @@
+<IconItem name='<%= it.name %>'>
+  <<%= it.name %> />
+</IconItem>

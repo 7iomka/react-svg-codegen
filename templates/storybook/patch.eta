@@ -1,0 +1,5 @@
+import type { FC, PropsWithChildren } from 'react';
+import { IconGallery as _IconGallery, IconItem as _IconItem } from '@storybook/addon-docs';
+
+const IconGallery = _IconGallery as FC<PropsWithChildren<{}>>;
+const IconItem = _IconItem as FC<PropsWithChildren<IconItemProps>>;

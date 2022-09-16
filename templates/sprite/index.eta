@@ -1,0 +1,5 @@
+<%~ includeFile('./import.eta', it) %>
+
+const Icon = <%~ it.iconsDeclaration %>;
+
+export { Icon }
