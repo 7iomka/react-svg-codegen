@@ -5,6 +5,12 @@ const svgConfig = (webpackConfig, { isServer } = { isServer: false }) => {
   webpackConfig.module.rules.push({
     test: /\.svg$/,
     oneOf: [
+      // ?raw: handle raw cases
+      {
+        resourceQuery: /raw/,
+        issuer: /\.(ts|tsx)?$/,
+        type: 'asset/source',
+      },
       // ?sprite: add icon to sprite
       {
         resourceQuery: /sprite/,
