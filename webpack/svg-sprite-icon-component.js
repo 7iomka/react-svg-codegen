@@ -20,7 +20,7 @@ const SvgSpriteIcon = function SvgSpriteIcon(props = {}) {
   const vW = vParts[2];
   const vH = vParts[3];
 
-  const aspectRatio = useMemo(() => Number(vW) / Number(vH), [vW, vH]);
+  const aspectRatio = Number(vW) / Number(vH);
 
   const width = propWidth || Math.floor(propHeight * aspectRatio) || symbol.width || '1em';
   const height = propHeight || Math.floor(propWidth / aspectRatio) || symbol.height || '1em';
