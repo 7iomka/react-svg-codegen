@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react'
+import { createElement, useMemo, memo } from 'react'
 import SpriteSymbol from '$$symbolRequest$$'
 import sprite from '$$spriteRequest$$'
 
@@ -20,13 +20,13 @@ const SvgSpriteIcon = function SvgSpriteIcon(props = {}) {
   const vW = vParts[2];
   const vH = vParts[3];
 
-  const aspectRatio = React.useMemo(() => Number(vW) / Number(vH), [vW, vH]);
+  const aspectRatio = useMemo(() => Number(vW) / Number(vH), [vW, vH]);
 
   const width = propWidth || Math.floor(propHeight * aspectRatio) || symbol.width || '1em';
   const height = propHeight || Math.floor(propWidth / aspectRatio) || symbol.height || '1em';
 
 
-  return React.createElement(
+  return createElement(
     'svg',
     {
       viewBox,
@@ -35,7 +35,7 @@ const SvgSpriteIcon = function SvgSpriteIcon(props = {}) {
       className: ['c-sprite-icon', className].filter(Boolean).join(' '),
       ...restProps,
     },
-    React.createElement('use', {
+    createElement('use', {
       xlinkHref: '#' + symbol.id,
     }),
   );
@@ -47,6 +47,6 @@ SvgSpriteIcon.content = symbol.content;
 SvgSpriteIcon.url = symbol.url;
 SvgSpriteIcon.toString = symbol.toString;
 
-const MemoSvgSpriteIcon = React.memo(SvgSpriteIcon);
+const MemoSvgSpriteIcon = memo(SvgSpriteIcon);
 MemoSvgSpriteIcon.displayName = `SvgSpriteIcon_${symbol.id}`;
 export default MemoSvgSpriteIcon;
